@@ -23,8 +23,6 @@ server = app.server  # Expose the server variable for deployments
 df = pd.read_csv('./mtcars.csv')
 cars = [df['model'][x] for x in range(len(df))]
 
-print(cars)
-
 app.layout = html.Div(children=[
     dcc.Dropdown(
         id='dropdown',
@@ -36,8 +34,74 @@ app.layout = html.Div(children=[
             {'label': ' Rear axle ratio', 'value': 'drat'}
         ],
         value='mpg'),
+    html.Div(
+        id='graphs',
+        className='row',
+        children=[
+            html.Div(
+                id='test_1_data',
+                children=[0, 5, 10, 11, 4, 2, 0, 1, 0, 1],
+                style={'display': 'none'}
+            ),
+            html.Div(
+                className='five columns',
+                children=[
+                    dcc.Graph(
+                        id='bar_graph',
+                        figure={
+                            'data': [
+                                {
+                                    'x': [i for i in range(1, 11)],
+                                    'y': [],
+                                    'type': 'bar',
+                                    'marker': {
+                                        'color': ['rgba(30,144,255,0.8)', 'rgba(255,140,0,0.8)'] +
+                                                 ['rgba(30,144,255,0.8)' for i in range(8)]
+                                    },
+                                },
+                            ],
+                            'layout': {
+                                'title': 'Number Of Clicks Used In Test 1',
+                                'xaxis': {
+                                    'dtick': 1
+                                },
+                                'yaxis': {
+                                    'dtick': 1
+                                },
+                                'autosize': True,
+                            }
+                        },
+                        config={
+                            'displayModeBar': False
+                        }
+                    )]),
+            html.Div(
+                className='five columns',
+                children=[
+                    dcc.Graph(
+                        id='pie_graph',
+                        figure={
+                            'data': [
+                                {
+                                    'labels': [str(i) + ' clicks' for i in range(1, 11)],
+                                    'values': [],
+                                    'type': 'pie',
+                                },
+                            ],
+                            'layout': {
+                                'title': 'Distribution Of Performances In Test 1',
+                                'autosize': True,
+                            }
+                        },
+                        config={
+                            'displayModeBar': False
+                        }
+                    )
+                ]
+            )
+        ]
+    )
 ])
-
 
 # State Management
 # -------------------------------------------------------------------------------------------------`-------
