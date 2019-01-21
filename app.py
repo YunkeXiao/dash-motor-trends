@@ -23,6 +23,8 @@ server = app.server  # Expose the server variable for deployments
 df = pd.read_csv('./mtcars.csv')
 cars = [df['model'][x] for x in range(len(df))]
 
+print(cars)
+
 app.layout = html.Div(children=[
     dcc.Dropdown(
         id='dropdown',
@@ -39,8 +41,8 @@ app.layout = html.Div(children=[
         className='row',
         children=[
             html.Div(
-                id='test_1_data',
-                children=[0, 5, 10, 11, 4, 2, 0, 1, 0, 1],
+                id='data',
+                children=[],
                 style={'display': 'none'}
             ),
             html.Div(
@@ -51,13 +53,9 @@ app.layout = html.Div(children=[
                         figure={
                             'data': [
                                 {
-                                    'x': [i for i in range(1, 11)],
-                                    'y': [],
+                                    'x': cars,
+                                    'y': [1 for i in range(32)],
                                     'type': 'bar',
-                                    'marker': {
-                                        'color': ['rgba(30,144,255,0.8)', 'rgba(255,140,0,0.8)'] +
-                                                 ['rgba(30,144,255,0.8)' for i in range(8)]
-                                    },
                                 },
                             ],
                             'layout': {
@@ -83,8 +81,8 @@ app.layout = html.Div(children=[
                         figure={
                             'data': [
                                 {
-                                    'labels': [str(i) + ' clicks' for i in range(1, 11)],
-                                    'values': [],
+                                    'labels': cars,
+                                    'values': [1 for i in range(32)],
                                     'type': 'pie',
                                 },
                             ],
@@ -103,8 +101,17 @@ app.layout = html.Div(children=[
     )
 ])
 
-# State Management
+
+# Data
 # -------------------------------------------------------------------------------------------------`-------
+@app.callback(
+    Output(component_id='data', component_property='children'),
+    [Input(component_id='dropdown', component_property='value')]
+)
+def update_graph(prop):
+    return [df[prop][i] for i in range(len(df[prop]))]
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
