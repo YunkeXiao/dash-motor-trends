@@ -58,7 +58,7 @@ app.layout = html.Div(children=[
                                 },
                             ],
                             'layout': {
-                                'title': 'Number Of Clicks Used In Test 1',
+                                'title': '',
                                 'autosize': True,
                             }
                         },
@@ -79,7 +79,7 @@ app.layout = html.Div(children=[
                                 },
                             ],
                             'layout': {
-                                'title': 'Distribution Of Performances In Test 1',
+                                'title': 'Distribution of ',
                                 'autosize': True,
                             }
                         },
