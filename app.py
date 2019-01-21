@@ -26,6 +26,7 @@ cars = [df['model'][x] for x in range(len(df))]
 # print(cars)
 
 app.layout = html.Div(children=[
+    html.H1("Dash Motor Trends"),
     dcc.Dropdown(
         id='dropdown',
         options=[
