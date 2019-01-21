@@ -43,10 +43,9 @@ app.layout = html.Div(children=[
             html.Div(
                 id='data',
                 children=[],
-                # style={'display': 'none'}
+                style={'display': 'none'}
             ),
             html.Div(
-                className='five columns',
                 children=[
                     dcc.Graph(
                         id='bar_graph',
@@ -60,12 +59,6 @@ app.layout = html.Div(children=[
                             ],
                             'layout': {
                                 'title': 'Number Of Clicks Used In Test 1',
-                                'xaxis': {
-                                    'dtick': 1
-                                },
-                                'yaxis': {
-                                    'dtick': 1
-                                },
                                 'autosize': True,
                             }
                         },
@@ -74,7 +67,6 @@ app.layout = html.Div(children=[
                         }
                     )]),
             html.Div(
-                className='five columns',
                 children=[
                     dcc.Graph(
                         id='pie_graph',
@@ -118,6 +110,17 @@ def update_data(prop):
     Output(component_id='bar_graph', component_property='figure'),
     [Input(component_id='data', component_property='children')],
     [State(component_id='bar_graph', component_property='figure')]
+)
+def update_bar(data, figure):
+    new_figure = figure
+    new_figure['data'][0]['y'] = data
+    return new_figure
+
+
+@app.callback(
+    Output(component_id='pie_graph', component_property='figure'),
+    [Input(component_id='data', component_property='children')],
+    [State(component_id='pie_graph', component_property='figure')]
 )
 def update_bar(data, figure):
     new_figure = figure
