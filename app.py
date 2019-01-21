@@ -23,7 +23,7 @@ server = app.server  # Expose the server variable for deployments
 df = pd.read_csv('./mtcars.csv')
 cars = [df['model'][x] for x in range(len(df))]
 
-print(cars)
+# print(cars)
 
 app.layout = html.Div(children=[
     dcc.Dropdown(
@@ -43,7 +43,7 @@ app.layout = html.Div(children=[
             html.Div(
                 id='data',
                 children=[],
-                style={'display': 'none'}
+                # style={'display': 'none'}
             ),
             html.Div(
                 className='five columns',
@@ -103,14 +103,26 @@ app.layout = html.Div(children=[
 
 
 # Data
-# -------------------------------------------------------------------------------------------------`-------
+# ---------------------------------------------------------------------------------------------------------
 @app.callback(
     Output(component_id='data', component_property='children'),
     [Input(component_id='dropdown', component_property='value')]
 )
-def update_graph(prop):
+def update_data(prop):
     return [df[prop][i] for i in range(len(df[prop]))]
 
+
+# Graph
+# ---------------------------------------------------------------------------------------------------------
+@app.callback(
+    Output(component_id='bar_graph', component_property='figure'),
+    [Input(component_id='data', component_property='children')],
+    [State(component_id='bar_graph', component_property='figure')]
+)
+def update_bar(data, figure):
+    new_figure = figure
+    new_figure['data'][0]['values'] = data
+    return new_figure
 
 
 if __name__ == '__main__':
