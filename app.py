@@ -30,10 +30,10 @@ app.layout = html.Div(children=[
         id='dropdown',
         options=[
             {'label': 'Miles/Gallon', 'value': 'mpg'},
-            {'label': '', 'value': 'cyl'},
-            {'label': 'Test 2 Results', 'value': 'disp'},
-            {'label': 'Test 3 Results', 'value': 'hp'},
-            {'label': 'Test 3 Results', 'value': 'drat'}
+            {'label': ' Number of cylinders', 'value': 'cyl'},
+            {'label': 'Displacement', 'value': 'disp'},
+            {'label': ' Gross horsepower', 'value': 'hp'},
+            {'label': ' Rear axle ratio', 'value': 'drat'}
         ],
         value='mpg'),
 ])
